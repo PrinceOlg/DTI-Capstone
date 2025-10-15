@@ -93,9 +93,9 @@ class ServiceRepairAccreditationApplication(DraftModel, models.Model):
 
     annual_gross_service_revenue = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True, help_text="Annual Gross Service Revenue (as of Dec 31, 20__)")
     capital_investment = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
-    tax_identification_number = models.CharField(max_length=12, help_text="Tax Identification Number (Exactly 9 to 12 digits only)")
-    mobile_number = models.CharField(max_length=11, help_text=("Mobile Number (Exactly 11 digits only)"))
-    telephone_number = models.CharField(max_length=15, help_text=("Telephone Number (Exactly 10 digits)"))
+    tax_identification_number = models.CharField(max_length=12)
+    mobile_number = models.CharField(max_length=11)
+    telephone_number = models.CharField(max_length=15, blank=True, null=True)
     date_established = models.DateField(blank=True, null=True)
     total_employees = models.PositiveIntegerField()
 
@@ -113,6 +113,9 @@ class ServiceRepairAccreditationApplication(DraftModel, models.Model):
 
     def get_absolute_url(self):
         return reverse("service-repair-accreditation", args=[self.pk])
+    
+    def get_update_url(self):
+        return reverse("update-service-repair-accreditation", args=[self.pk])
 
     def get_warranty_text(self):
         """Generate the warranty/undertaking text with the warranty period filled in"""
